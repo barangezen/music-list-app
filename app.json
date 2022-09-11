@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "patika-spotify",
+    "slug": "patika-spotify",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "patika-spotify"
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -9,10 +9,21 @@ import {
 } from "react-native";
 import AppBackground from "../assets/Patikaspoti.png";
 import { CustomButton } from "../components/CustomButton";
+import auth from "@react-native-firebase/auth";
 
 const windowWidth = Dimensions.get("window").width;
 
 export const SignIn = ({ navigation }) => {
+  const [loginInfo, setLoginInfo] = useState({
+    loginEmail: null,
+    loginPassword: null,
+  });
+  const handleSignIn = () => {
+    auth()
+      .signInWithEmailAndPassword(loginInfo.loginEmail, loginInfo.loginPassword)
+      .then(() => navigation.navigate("MainScreens", { screen: "Home" }))
+      .catch((err) => console.log(err));
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={AppBackground} style={styles.background}>
@@ -20,20 +31,28 @@ export const SignIn = ({ navigation }) => {
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
-              placeholder="User Name"
+              placeholder="Email"
               placeholderTextColor={"white"}
+              value={loginInfo.loginEmail}
+              onChangeText={(text) =>
+                setLoginInfo({ ...loginInfo, loginEmail: text })
+              }
             />
             <TextInput
               style={styles.input}
               placeholder="Password"
               placeholderTextColor={"white"}
+              value={loginInfo.loginPassword}
+              onChangeText={(text) =>
+                setLoginInfo({ ...loginInfo, loginPassword: text })
+              }
             />
           </View>
           <CustomButton
             title={"Login"}
             buttonContainerStyle={styles.loginButtonContainer}
             buttonTextStyle={styles.buttonText}
-            onPress={() => navigation.navigate('MainScreens', {screen: 'Home'})}
+            onPress={handleSignIn}
           />
           <Text style={styles.registerText}>Don't have an account?</Text>
           <CustomButton
@@ -82,6 +101,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "white",
     top: 60,
+    marginBottom: 80,
   },
   loginButtonContainer: {
     height: 60,
@@ -101,7 +121,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    top: 80,
   },
   buttonText: {
     fontSize: 20,

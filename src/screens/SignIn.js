@@ -10,17 +10,27 @@ import {
 import AppBackground from "../assets/Patikaspoti.png";
 import { CustomButton } from "../components/CustomButton";
 import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const windowWidth = Dimensions.get("window").width;
 
 export const SignIn = ({ navigation }) => {
   const [loginInfo, setLoginInfo] = useState({
-    loginEmail: null,
-    loginPassword: null,
+    loginEmail: '',
+    loginPassword: '',
   });
+  console.log('loginInfo', loginInfo);
+  const setUserAsyncStorage = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('registeredUser', jsonValue);
+    } catch (e) {
+      // save error
+    }
+  };
   const handleSignIn = () => {
     auth()
-      .signInWithEmailAndPassword(loginInfo.loginEmail, loginInfo.loginPassword)
+      .signInWithEmailAndPassword(loginInfo.loginEmail, loginInfo.loginPassword).then(setUserAsyncStorage(loginInfo))
       .then(() => navigation.navigate("MainScreens", { screen: "Home" }))
       .catch((err) => console.log(err));
   };

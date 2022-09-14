@@ -10,6 +10,7 @@ import {
 import AppBackground from "../assets/Patikaspoti.png";
 import { CustomButton } from "../components/CustomButton";
 import auth from "@react-native-firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -19,12 +20,21 @@ export const SignUp = ({ navigation }) => {
     userPassword: null,
   });
   const [confirmedPassword, setConfirmedPassword] = useState();
+  const setUserAsyncStorage = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem("registeredUser", jsonValue);
+    } catch (e) {
+      // save error
+    }
+  };
   const handleSignUp = () => {
     auth()
       .createUserWithEmailAndPassword(
         registerInfo.userMail,
         registerInfo.userPassword
       )
+      .then(setUserAsyncStorage(registerInfo))
       .then(() => navigation.navigate("MainScreens", { screen: "Home" }))
       .catch((err) => console.log(err));
   };
@@ -63,7 +73,9 @@ export const SignUp = ({ navigation }) => {
             buttonContainerStyle={[styles.buttonContainer]}
             buttonTextStyle={styles.buttonText}
             onPress={handleSignUp}
-            isDisabled={registerInfo.userPassword === confirmedPassword ? false : true}
+            isDisabled={
+              registerInfo.userPassword === confirmedPassword ? false : true
+            }
           />
         </View>
       </ImageBackground>
@@ -108,7 +120,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    
   },
   buttonText: {
     fontSize: 20,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -9,10 +9,25 @@ import {
 } from "react-native";
 import AppBackground from "../assets/Patikaspoti.png";
 import { CustomButton } from "../components/CustomButton";
+import auth from "@react-native-firebase/auth";
 
 const windowWidth = Dimensions.get("window").width;
 
-export const SignUp = ({navigation}) => {
+export const SignUp = ({ navigation }) => {
+  const [registerInfo, setRegisterInfo] = useState({
+    userMail: null,
+    userPassword: null,
+  });
+  const [confirmedPassword, setConfirmedPassword] = useState();
+  const handleSignUp = () => {
+    auth()
+      .createUserWithEmailAndPassword(
+        registerInfo.userMail,
+        registerInfo.userPassword
+      )
+      .then(() => navigation.navigate("MainScreens", { screen: "Home" }))
+      .catch((err) => console.log(err));
+  };
   return (
     <View style={styles.container}>
       <ImageBackground source={AppBackground} style={styles.background}>
@@ -22,28 +37,33 @@ export const SignUp = ({navigation}) => {
               style={styles.input}
               placeholder="Email"
               placeholderTextColor={"white"}
+              value={registerInfo.userMail}
+              onChangeText={(text) =>
+                setRegisterInfo({ ...registerInfo, userMail: text })
+              }
             />
             <TextInput
               style={styles.input}
-              placeholder="User Name"
-              placeholderTextColor={"white"}
-            />
-             <TextInput
-              style={styles.input}
               placeholder="Password"
               placeholderTextColor={"white"}
+              onChangeText={(text) =>
+                setRegisterInfo({ ...registerInfo, userPassword: text })
+              }
             />
-             <TextInput
+            <TextInput
               style={styles.input}
               placeholder="Confirm Password"
               placeholderTextColor={"white"}
+              value={confirmedPassword}
+              onChangeText={(text) => setConfirmedPassword(text)}
             />
           </View>
           <CustomButton
             title={"Register"}
-            buttonContainerStyle={styles.buttonContainer}
+            buttonContainerStyle={[styles.buttonContainer]}
             buttonTextStyle={styles.buttonText}
-            onPress={() => navigation.navigate('MainScreens', {screen: 'Home'})}
+            onPress={handleSignUp}
+            isDisabled={registerInfo.userPassword === confirmedPassword ? false : true}
           />
         </View>
       </ImageBackground>
@@ -88,7 +108,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    top: 20,
+    
   },
   buttonText: {
     fontSize: 20,

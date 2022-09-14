@@ -4,6 +4,7 @@ import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { MainScreens } from "./src/screens/MainScreens/MainScreens";
+import { PlayListDetail } from "./src/screens/PlayListDetail";
 import { SignIn } from "./src/screens/SignIn";
 import { SignUp } from "./src/screens/SignUp";
 import { store } from "./src/store";
@@ -16,6 +17,7 @@ export default function App() {
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="PlayListDetail" component={PlayListDetail} />
             <Stack.Screen name="MainScreens" component={MainScreens} />
           </Stack.Navigator>
         </Provider>

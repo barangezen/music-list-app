@@ -8,9 +8,10 @@ import { setTokenObj } from "../../features/TokenSlice/TokenSlice";
 import { setActiveUser } from "../../features/UserSlice/UserSlice";
 import { useGetsyncStorageValue } from "./hooks/getAsyncStorageValue";
 
-export const Home = ({navigation}) => {
+export const Home = ({ navigation }) => {
   const [spotifyToken, setSpotifyToken] = useState();
   const [playLists, setPlayLists] = useState();
+  const themeColors = useSelector((state) => state.theme);
   const asyncStorageValue = useGetsyncStorageValue("registeredUser");
   const dispatch = useDispatch();
 
@@ -42,25 +43,37 @@ export const Home = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Baran's Playlists</Text>
-      <View style={styles.playListsContainer}>
-        <Playlists playLists={playLists ? playLists : []} navigation={navigation} />
+    <View style={styles.container(themeColors)}>
+      <Text style={styles.title(themeColors)}>Baran's Playlists</Text>
+      <View style={styles.playListsContainer(themeColors)}>
+        <Playlists
+          playLists={playLists ? playLists : []}
+          navigation={navigation}
+        />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: function (mode) {
+    return {
+      flex: 1,
+      backgroundColor: mode.theme.white,
+    };
   },
-  title: {
-    fontSize: 40,
-    padding: 10,
-    fontWeight: "bold",
+  title: function (mode) {
+    return {
+      fontSize: 40,
+      padding: 10,
+      fontWeight: "bold",
+      color: mode.theme.black,
+    };
   },
-  playListsContainer: {
-    padding: 10,
+  playListsContainer: function (mode) {
+    return {
+      padding: 10,
+      backgroundColor: mode.theme.white
+    };
   },
 });

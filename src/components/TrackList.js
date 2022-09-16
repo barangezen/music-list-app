@@ -8,8 +8,9 @@ const windowHeight = Dimensions.get("window").height;
 
 export const TrackList = ({ trackList }) => {
   console.log("track list", trackList);
+  const themeColors = useSelector((state) => state.theme);
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container(themeColors)}>
       {trackList?.items.map((track) => {
         return (
           <Track
@@ -24,8 +25,11 @@ export const TrackList = ({ trackList }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    marginTop: 10,
+  container: function (mode) {
+    return {
+      flexGrow: 1,
+      marginTop: 10,
+      backgroundColor: mode.theme.white,
+    };
   },
 });

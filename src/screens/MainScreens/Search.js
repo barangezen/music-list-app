@@ -8,11 +8,10 @@ import { Tracks } from "../../components/Tracks";
 export const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedType, setSelectedType] = useState("track");
-  console.log("selectedType", selectedType);
   const [trackAlbumArtist, setTrackAlbumArtist] = useState("");
-  /* console.log("trackAlbumArtist", trackAlbumArtist.tracks.items); */
+  console.log("trackAlbumArtist", trackAlbumArtist);
   const tokenData = useSelector((state) => state.tokenObj);
-  console.log("tokenData", tokenData);
+  const themeColors = useSelector((state) => state.theme);
   const displayContent = () => {
     if (selectedType === "track") {
       return <Tracks trackList={trackAlbumArtist} />;
@@ -33,10 +32,11 @@ export const Search = () => {
       .then((res) => setTrackAlbumArtist(res));
   }, [searchInput, selectedType]);
   return (
-    <View style={styles.container}>
+    <View style={styles.container(themeColors)}>
       <TextInput
-        style={styles.searchMovie}
+        style={styles.searchMovie(themeColors)}
         placeholder="Search track..."
+        placeholderTextColor={themeColors.theme.black}
         onChangeText={(text) => {
           setSearchInput(text);
         }}
@@ -60,14 +60,19 @@ export const Search = () => {
 
 const styles = StyleSheet.create({
   // Styles in component because we use global state data.
-  container: {
-    flex: 1,
-    backgroundColor: "white",
+  container: function (mode) {
+    return {
+      flex: 1,
+      backgroundColor: mode.theme.white,
+    };
   },
-  searchMovie: {
-    marginTop: 20,
-    height: 50,
-    backgroundColor: "rgba(55, 54, 54, 0.5)",
+  searchMovie: function (mode) {
+    return {
+      marginTop: 20,
+      height: 50,
+      backgroundColor: "rgba(55, 54, 54, 0.5)",
+      color: mode.theme.black,
+    };
   },
   buttonContainer: {
     flexDirection: "row",

@@ -9,6 +9,7 @@ export const PlayListDetail = ({ route }) => {
   const { playListTitle, totalTracks, playListPoster, playListTracksUrl } =
     route.params;
   const [tracks, setTracks] = useState();
+  const themeColors = useSelector((state) => state.theme);
   const accessToken = useSelector((state) => state.tokenObj);
   useEffect(() => {
     fetch(playListTracksUrl, {
@@ -20,12 +21,14 @@ export const PlayListDetail = ({ route }) => {
       .then((trackListResponse) => setTracks(trackListResponse));
   }, []);
   return (
-    <View style={styles.container}>
+    <View style={styles.container(themeColors)}>
       <Image style={styles.poster} source={{ uri: playListPoster }} />
-      <Text style={styles.title}>{playListTitle}</Text>
-      <Text style={styles.totalTracks}>{`Total Tracks: ${totalTracks}`}</Text>
-      <View style={styles.trackListContainer}>
-        <Text style={styles.listTitle}>{"Tracks"}</Text>
+      <Text style={styles.title(themeColors)}>{playListTitle}</Text>
+      <Text
+        style={styles.totalTracks(themeColors)}
+      >{`Total Tracks: ${totalTracks}`}</Text>
+      <View style={styles.trackListContainer(themeColors)}>
+        <Text style={styles.listTitle(themeColors)}>{"Tracks"}</Text>
         <TrackList trackList={tracks} />
       </View>
     </View>
@@ -33,8 +36,11 @@ export const PlayListDetail = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: function (mode) {
+    return {
+      flex: 1,
+      backgroundColor: mode.theme.white,
+    };
   },
   poster: {
     width: 200,
@@ -42,21 +48,33 @@ const styles = StyleSheet.create({
     marginLeft: 82,
     marginTop: 40,
   },
-  title: {
-    paddingLeft: 10,
-    fontSize: 20,
-    fontWeight: "bold",
-    marginTop: 20
+  title: function (mode) {
+    return {
+      paddingLeft: 10,
+      fontSize: 20,
+      fontWeight: "bold",
+      marginTop: 20,
+      color: mode.theme.black,
+    };
   },
-  totalTracks: {
-    paddingLeft: 10,
-    marginBottom: 20
+  totalTracks: function (mode) {
+    return {
+      paddingLeft: 10,
+      marginBottom: 20,
+      color: mode.theme.black,
+    };
   },
-  trackListContainer: {
-    paddingLeft: 10,
+  trackListContainer: function (mode) {
+    return {
+      paddingLeft: 10,
+      backgroundColor: mode.theme.white,
+    };
   },
-  listTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
+  listTitle: function (mode) {
+    return {
+      fontSize: 20,
+      fontWeight: "bold",
+      color: mode.theme.black
+    };
   },
 });

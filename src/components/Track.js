@@ -1,25 +1,43 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
 
-export const Track = ({trackName, artistName}) => {
+export const Track = ({ trackName, artistName }) => {
+  const themeColors = useSelector((state) => state.theme);
   return (
-    <View style={styles.container}>
-      <Text style={styles.trackName} numberOfLines={1} ellipsizeMode="tail">{trackName}</Text>
-      <Text style={styles.artistName} numberOfLines={1} ellipsizeMode="tail">{artistName}</Text>
+    <View style={styles.container(themeColors)}>
+      <Text
+        style={styles.trackName(themeColors)}
+        numberOfLines={1}
+        ellipsizeMode="tail"
+      >
+        {trackName}
+      </Text>
+      <Text style={styles.artistName(themeColors)} numberOfLines={1} ellipsizeMode="tail">
+        {artistName}
+      </Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    height: 60,
-    marginBottom: 10,
+  container: function (mode) {
+    return {
+      height: 60,
+      marginBottom: 10,
+      backgroundColor: mode.theme.white,
+    };
   },
-  trackName: {
-    fontSize: 15,
-    fontWeight: 'bold'
+  trackName: function (mode) {
+    return {
+      fontSize: 15,
+      fontWeight: "bold",
+      color: mode.theme.black,
+    };
   },
-  artistName: {
-    color: '#444444'
-  }
+  artistName: function (mode) {
+    return {
+      color: mode.theme.black,
+    };
+  },
 });

@@ -1,6 +1,6 @@
 import React from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "./Home";
 import { Search } from "./Search";
 import { Profile } from "./Profile";

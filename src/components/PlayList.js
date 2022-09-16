@@ -1,7 +1,6 @@
 import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import PatikaSpotiImg from "../assets/Patikaspoti.png";
 
 export const Playlist = ({
   playListTitle,
@@ -26,10 +25,16 @@ export const Playlist = ({
         <View style={styles.contentContainer}>
           <Image style={styles.poster} source={{ uri: playListPoster }} />
           <View style={styles.textContainer}>
-            <Text style={styles.title(themeColors)} numberOfLines={1} ellipsizeMode="tail">
+            <Text
+              style={styles.title(themeColors)}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+            >
               {playListTitle}
             </Text>
-            <Text style={styles.totalTrack(themeColors)}>{totalTracks ? `Total Tracks: ${totalTracks}` : ""}</Text>
+            <Text style={styles.totalTrack(themeColors)}>
+              {totalTracks ? `Total Tracks: ${totalTracks}` : ""}
+            </Text>
           </View>
         </View>
       </View>
@@ -61,12 +66,12 @@ const styles = StyleSheet.create({
     return {
       fontSize: 18,
       fontWeight: "bold",
-      color: mode.theme.black
+      color: mode.theme.black,
     };
   },
-  totalTrack: function(mode) {
+  totalTrack: function (mode) {
     return {
-      color: mode.theme.black
-    }
-  }
+      color: mode.theme.black,
+    };
+  },
 });

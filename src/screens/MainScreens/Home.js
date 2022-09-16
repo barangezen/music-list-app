@@ -6,7 +6,7 @@ import { getSpotifyToken } from "../../api/spotify_token";
 import { Playlists } from "../../components/PlayLists";
 import { setTokenObj } from "../../features/TokenSlice/TokenSlice";
 import { setActiveUser } from "../../features/UserSlice/UserSlice";
-import { useGetsyncStorageValue } from "./hooks/getAsyncStorageValue";
+import { useGetsyncStorageValue } from "../../hooks/getAsyncStorageValue";
 
 export const Home = ({ navigation }) => {
   const [spotifyToken, setSpotifyToken] = useState();
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
   playListsContainer: function (mode) {
     return {
       padding: 10,
-      backgroundColor: mode.theme.white
+      backgroundColor: mode.theme.white,
     };
   },
 });

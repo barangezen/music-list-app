@@ -1,10 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { ScrollView, Dimensions, View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
 import { Track } from "./Track";
-
-const windowHeight = Dimensions.get("window").height;
 
 export const Tracks = ({ trackList }) => {
   const themeColors = useSelector((state) => state.theme);

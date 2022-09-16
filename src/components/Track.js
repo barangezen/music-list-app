@@ -14,7 +14,6 @@ export const Track = ({ trackName, artistName }) => {
     setIsLiked(!isLiked);
     setLikedTrack({ ...likedTrack, track: trackName, artist: artistName });
   };
-  console.log(likedTrack);
   useEffect(() => {
     if (isLiked) {
       dispatch(addLikedTrack(likedTrack));

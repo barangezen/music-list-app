@@ -2,12 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { LikedTracksList } from "../components/LikedTracksList";
-import { TrackList } from "../components/TrackList";
 
 export const LikedTracks = () => {
   const likedTracks = useSelector((state) => state.likedTracks);
   const themeColors = useSelector((state) => state.theme);
-  console.log("global liked", likedTracks);
   return (
     <View style={styles.container(themeColors)}>
       <Text style={styles.title(themeColors)}>{"Liked Tracks"}</Text>

@@ -5,7 +5,6 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import ProfilePhoto from "../../assets/baranProfilePhoto.png";
 import { CustomButton } from "../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import auth from "@react-native-firebase/auth";
 import { setActiveUser } from "../../features/UserSlice/UserSlice";
 import { setTheme } from "../../features/ThemeSlice/themeSlice";
 import { darkTheme, lightTheme } from "../../data/theme";
@@ -13,6 +12,8 @@ import { firebase } from "@react-native-firebase/auth";
 export const Profile = ({ navigation }) => {
   const activeUser = useSelector((state) => state.user);
   const themeColors = useSelector((state) => state.theme);
+  const likedTracks = useSelector((state) => state.likedTracks);
+  console.log('likedTracks',likedTracks)
   const dispatch = useDispatch();
   const [editedUser, setEditedUser] = useState({
     userEmail: activeUser.user.userEmail,
@@ -35,12 +36,12 @@ export const Profile = ({ navigation }) => {
       // remove error
     }
   };
-  console.log(firebase.auth().currentUser);
-  const handleConfirm =  () => {
-     firebase.auth().currentUser.updateEmail(editedUser.userEmail);
-     firebase.auth().currentUser.updatePassword(editedUser.userPassword);
+  const handleConfirm = async () => {
+    firebase.auth().currentUser.updateEmail(editedUser.userEmail);
+    firebase.auth().currentUser.updatePassword(editedUser.userPassword);
     setUserAsyncStorage(editedUser);
     dispatch(setActiveUser(editedUser));
+    navigation.navigate("SignIn");
   };
   const handleLogout = () => {
     removeValue();
@@ -56,7 +57,6 @@ export const Profile = ({ navigation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEnabled]);
 
-  console.log("aaa", firebase.auth().currentUser);
   return (
     <View style={styles.container(themeColors)}>
       <View style={styles.darkModeContainer}>
@@ -97,6 +97,12 @@ export const Profile = ({ navigation }) => {
           buttonContainerStyle={styles.confirmButtonContainer(themeColors)}
           buttonTextStyle={styles.buttonText(themeColors)}
           onPress={handleConfirm}
+        />
+        <CustomButton
+          title={"Liked Tracks"}
+          buttonContainerStyle={styles.confirmButtonContainer(themeColors)}
+          buttonTextStyle={styles.buttonText(themeColors)}
+          onPress={() => navigation.navigate("LikedTracks")}
         />
         <CustomButton
           title={"Logout"}

@@ -6,16 +6,16 @@ import { Track } from "./Track";
 
 const windowHeight = Dimensions.get("window").height;
 
-export const TrackList = ({ trackList }) => {
+export const LikedTracksList = ({ trackList }) => {
   const themeColors = useSelector((state) => state.theme);
   return (
     <ScrollView contentContainerStyle={styles.container(themeColors)}>
-      {trackList?.items.map((track) => {
+      {trackList?.likedTracks.map((track, index) => {
         return (
           <Track
-            key={track.track.id}
-            trackName={track.track.name}
-            artistName={track.track.artists[0].name}
+            key={index}
+            trackName={track?.track}
+            artistName={track?.artist}
           />
         );
       })}
@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
       flexGrow: 1,
       marginTop: 10,
       backgroundColor: mode.theme.white,
+      
     };
   },
 });

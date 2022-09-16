@@ -7,7 +7,6 @@ import { Track } from "./Track";
 const windowHeight = Dimensions.get("window").height;
 
 export const Albums = ({ trackList }) => {
-  console.log("track list", trackList);
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {trackList?.albums?.items.map((track) => {

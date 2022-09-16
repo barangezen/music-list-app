@@ -9,7 +9,6 @@ export const Search = () => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedType, setSelectedType] = useState("track");
   const [trackAlbumArtist, setTrackAlbumArtist] = useState("");
-  console.log("trackAlbumArtist", trackAlbumArtist);
   const tokenData = useSelector((state) => state.tokenObj);
   const themeColors = useSelector((state) => state.theme);
   const displayContent = () => {

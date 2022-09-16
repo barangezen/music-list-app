@@ -13,7 +13,6 @@ export const Profile = ({ navigation }) => {
   const activeUser = useSelector((state) => state.user);
   const themeColors = useSelector((state) => state.theme);
   const likedTracks = useSelector((state) => state.likedTracks);
-  console.log('likedTracks',likedTracks)
   const dispatch = useDispatch();
   const [editedUser, setEditedUser] = useState({
     userEmail: activeUser.user.userEmail,

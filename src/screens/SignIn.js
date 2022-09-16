@@ -11,8 +11,8 @@ import AppBackground from "../assets/Patikaspoti.png";
 import { CustomButton } from "../components/CustomButton";
 import auth from "@react-native-firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useGetsyncStorageValue } from "./MainScreens/hooks/getAsyncStorageValue";
 import { useEffect } from "react";
+import { useGetsyncStorageValue } from "../hooks/getAsyncStorageValue";
 
 const windowWidth = Dimensions.get("window").width;
 

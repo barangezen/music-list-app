@@ -3,7 +3,6 @@ import { ScrollView } from "react-native";
 import { Playlist } from "./PlayList";
 
 export const Playlists = ({playLists, navigation}) => {
-    console.log('Playlists', playLists)
   return (
     <ScrollView>
       {playLists.items?.map((playList) => {

@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
+import { LikedTracks } from "./src/screens/LikedTracks";
 import { MainScreens } from "./src/screens/MainScreens/MainScreens";
 import { PlayListDetail } from "./src/screens/PlayListDetail";
 import { SignIn } from "./src/screens/SignIn";
@@ -18,6 +19,7 @@ export default function App() {
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="PlayListDetail" component={PlayListDetail} />
+            <Stack.Screen name="LikedTracks" component={LikedTracks} />
             <Stack.Screen name="MainScreens" component={MainScreens} />
           </Stack.Navigator>
         </Provider>

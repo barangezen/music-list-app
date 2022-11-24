@@ -1,5 +1,3 @@
-# assignment-5-barangezenoglu1
-assignment-5-barangezenoglu1 created by GitHub Classroom
 
 ## What is this project ?
 It's a basic tracks and album listing app which developed by spotify web api. Checkout spotify for developers in https://developer.spotify.com/. Login and register controlled by Firebase.
